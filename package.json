@@ -1,0 +1,28 @@
+{
+  "name": "pdf-excel-signer-portable",
+  "version": "1.0.0",
+  "private": true,
+  "main": "main.js",
+  "description": "PDF-Excel Signer - samodzielna aplikacja Windows",
+  "scripts": {
+    "prepare:assets": "node scripts/copy-vendor.js",
+    "build:win": "npm run prepare:assets && electron-builder --win portable --x64"
+  },
+  "dependencies": {
+    "exceljs": "4.4.0",
+    "pdf-lib": "1.17.1",
+    "pdfjs-dist": "3.11.174"
+  },
+  "devDependencies": {
+    "electron": "35.7.5",
+    "electron-builder": "26.0.12"
+  },
+  "build": {
+    "appId": "pl.pdfexcelsigner.desktop",
+    "productName": "PDF-Excel Signer",
+    "asar": true,
+    "files": ["main.js", "app/**/*", "package.json"],
+    "directories": {"output": "dist"},
+    "win": {"target": [{"target": "portable", "arch": ["x64"]}], "icon": "icon.ico", "artifactName": "PDF-Excel-Signer-Portable.exe"}
+  }
+}

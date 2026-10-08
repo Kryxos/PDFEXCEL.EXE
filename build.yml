@@ -1,0 +1,24 @@
+name: Zbuduj samodzielny EXE
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+jobs:
+  windows-exe:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Zainstaluj zaleznosci do kompilacji
+        run: npm install --no-audit --no-fund
+      - name: Zbuduj EXE z bibliotekami offline
+        run: npm run build:win
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PDF-Excel-Signer-Portable
+          path: dist/PDF-Excel-Signer-Portable.exe
+          if-no-files-found: error
